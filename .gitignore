@@ -67,3 +67,5 @@ coverage.xml
 *.png
 *.jpg
 *.jpeg
+
+.env
