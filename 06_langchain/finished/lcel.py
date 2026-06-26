@@ -1,7 +1,9 @@
 import os
 from langchain_core.messages import SystemMessage
+from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate, HumanMessagePromptTemplate
 from langchain_openai import ChatOpenAI
+
 
 llm = ChatOpenAI(
     api_key=os.environ.get("GH_MODELS_PAT"),
@@ -18,10 +20,12 @@ prompt_template = ChatPromptTemplate.from_messages(
     ],
 )
 
-prompt = prompt_template.invoke({"company": "Microsoft"})
-response = llm.invoke(prompt)
-print(response.content)
+output_parser = StrOutputParser()
 
-prompt = prompt_template.invoke({"company": "Apple"})
-response = llm.invoke(prompt)
-print(response.content)
+chain = prompt_template | llm | output_parser
+
+response = chain.invoke({"company": "Microsoft"})
+print(response)
+
+response = chain.invoke({"company": "Apple"})
+print(response)
