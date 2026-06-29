@@ -12,10 +12,6 @@ from langchain_core.prompts import (
 from langchain_openai import ChatOpenAI
 from pydantic import BaseModel
 
-from dotenv import load_dotenv
-
-load_dotenv()
-
 MODEL = "gpt-4o-mini"
 SYSTEM_PROMPT = (
     "You are a tech analyst that answers questions about big tech companies."
